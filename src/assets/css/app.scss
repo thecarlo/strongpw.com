@@ -1,0 +1,36 @@
+#app-container {
+  #heading {
+    text-align: center;
+    color: #7768ff;
+    font-weight: 500;
+    margin-top: 100px;
+  }
+
+  @media (max-width: 768px) {
+    #heading {
+      font-size: 25px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    #heading {
+      font-size: 22px;
+    }
+  }
+}
+
+#footer-container {
+  margin:100px auto 0 auto;
+  text-align: center;
+
+  .fab.fa-github {
+    color:#aab0b6;
+  }
+
+  a, a:hover, a:visited {
+    color:#aab0b6;
+    text-decoration: none;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+  }
+}

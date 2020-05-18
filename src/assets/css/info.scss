@@ -7,4 +7,16 @@
     font-size: 30px;
     color: #aab0b6;
   }
+
+  @media (max-width: 1024px) {
+    h2 {
+      font-size: 22px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    h2 {
+      font-size: 20px;
+    }
+  }
 }
