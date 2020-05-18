@@ -1,28 +1,69 @@
 import React, { Component } from "react";
 import InputRange from "react-input-range";
+import Checkbox from "./Checkbox";
+import Info from "./Info";
 import "../assets/css/generate-password.scss";
 import generator from "generate-password";
-import Info from "./Info";
+
+const CHECKBOXES = ["Symbols", "Numbers"];
 
 class GeneratePassword extends Component {
   constructor(props) {
     super(props);
-    this.state = { password: "", type: "text", value: 30 };
+
+    this.state = {
+      password: "",
+      type: "text",
+      value: 25,
+      checkboxes: CHECKBOXES.reduce(
+        (options, option) => ({
+          ...options,
+          [option]: true
+        }),
+        {}
+      )
+    };
 
     this.onGenerate = this.onGenerate.bind(this);
     this.copyToClipboard = this.copyToClipboard.bind(this);
     this.onLengthChange = this.onLengthChange.bind(this);
+    this.createCheckbox = this.createCheckbox.bind(this);
+    this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
   }
+
+  handleCheckboxChange = changeEvent => {
+    const { name } = changeEvent.target;
+
+    this.setState(prevState => ({
+      checkboxes: {
+        ...prevState.checkboxes,
+        [name]: !prevState.checkboxes[name]
+      }
+    }), () => {
+      this.getPassword();
+    });
+  };
+
+  createCheckbox = option => (
+    <Checkbox
+      label={option}
+      isSelected={this.state.checkboxes[option]}
+      onCheckboxChange={this.handleCheckboxChange}
+      key={option}
+    />
+  );
 
   getPassword() {
     var result = generator.generate({
       length: this.state.value,
-      numbers: true,
-      symbols: true,
+      numbers: this.state.checkboxes.Numbers,
+      symbols: this.state.checkboxes.Symbols,
+      lowercase: true,
       uppercase: true,
       strict: true,
-      exclude: `"`
+      exclude: `"';`
     });
+
     this.setState({ password: result });
   }
 
@@ -43,6 +84,8 @@ class GeneratePassword extends Component {
     document.getElementById("password").select();
     document.execCommand("copy");
   };
+
+  createCheckboxes = () => CHECKBOXES.map(this.createCheckbox);
 
   render() {
     return (
@@ -72,6 +115,10 @@ class GeneratePassword extends Component {
           </form>
         </div>
 
+        <div id="options-container">
+          {this.createCheckboxes()}
+        </div>
+
         <InputRange
           minValue={12}
           maxValue={100}
@@ -81,6 +128,7 @@ class GeneratePassword extends Component {
         />
 
         <Info />
+
       </React.Fragment>
     );
   }
