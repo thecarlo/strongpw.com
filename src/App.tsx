@@ -19,6 +19,23 @@ export const App = () => {
           numbers={true}
           symbols={true}
         />
+
+        <div className="source-code">
+          <a
+            target="_blank"
+            href="https://github.com/thecarlo/strongpw.com"
+            rel="noreferrer"
+          >
+            <i className="fa-brands fa-github fa-lg"></i>
+          </a>{' '}
+          <a
+            target="_blank"
+            href="https://github.com/thecarlo/strongpw.com"
+            rel="noreferrer"
+          >
+            Source Code
+          </a>
+        </div>
       </main>
     </React.StrictMode>
   );
