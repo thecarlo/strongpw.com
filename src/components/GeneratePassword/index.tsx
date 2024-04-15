@@ -29,15 +29,19 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const handleOnCopy = () => {
     const selection = window.getSelection();
 
+    if (!selection) return;
+
     const range = document.createRange();
 
-    range.selectNodeContents(passwordRef.current);
+    if (passwordRef.current) {
+      range.selectNodeContents(passwordRef.current);
 
-    selection.removeAllRanges();
+      selection.removeAllRanges();
 
-    selection.addRange(range);
+      selection.addRange(range);
 
-    document.execCommand('copy');
+      document.execCommand('copy');
+    }
   };
 
   const handleOnGenerate = () => {

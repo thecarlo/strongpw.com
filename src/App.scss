@@ -15,15 +15,15 @@ main {
     margin-top: 100px;
   }
 
-  .source-code {
-    margin-top: 80px;
+  div.source {
+    padding-top: 80px;
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     font-size: 14px;
+    font-weight: 300;
 
-    a,
     a:hover {
-      cursor: pointer !important;
+      cursor: pointer;
     }
   }
 }

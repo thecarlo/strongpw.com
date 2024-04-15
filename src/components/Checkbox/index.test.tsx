@@ -6,15 +6,14 @@ import {
   render,
   screen,
 } from '@testing-library/react';
-
-import '@testing-library/jest-dom/extend-expect';
+import { afterEach, describe, expect, test, vi } from 'vitest';
 
 import { Checkbox } from './index';
 
 afterEach(cleanup);
 
 describe('Checkbox', () => {
-  const changeEvent = jest.fn();
+  const changeEvent = vi.fn();
 
   test('should have checked attribute set to true if checked', () => {
     render(
@@ -32,7 +31,7 @@ describe('Checkbox', () => {
   });
 
   test('should call the onCheckboxChange event when checkbox is clicked', () => {
-    const changeEvent = jest.fn();
+    const changeEvent = vi.fn();
 
     render(
       <Checkbox
@@ -53,7 +52,7 @@ describe('Checkbox', () => {
   });
 
   test('should set the correct label text', () => {
-    const changeEvent = jest.fn();
+    const changeEvent = vi.fn();
 
     render(
       <Checkbox
