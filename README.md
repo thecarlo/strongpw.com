@@ -1,1 +1,1 @@
-npx jest --init
+#strongpw.com
