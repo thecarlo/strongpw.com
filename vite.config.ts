@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     createHtmlPlugin({
-      minify: true, // Enable HTML minification
+      minify: true,
     }),
   ],
   root: './',
