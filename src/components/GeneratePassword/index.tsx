@@ -26,21 +26,27 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   const [password, setPassword] = useState<string>('');
 
-  const handleOnCopy = () => {
-    const selection = window.getSelection();
-
-    if (!selection) return;
-
-    const range = document.createRange();
-
+  const handleOnCopy = async () => {
     if (passwordRef.current) {
-      range.selectNodeContents(passwordRef.current);
+      try {
+        const textToCopy = passwordRef.current.textContent ?? '';
 
-      selection.removeAllRanges();
+        await navigator.clipboard.writeText(textToCopy);
 
-      selection.addRange(range);
+        const selection = window.getSelection();
 
-      document.execCommand('copy');
+        if (selection) {
+          const range = document.createRange();
+
+          selection.removeAllRanges();
+
+          range.selectNodeContents(passwordRef.current);
+
+          selection.addRange(range);
+        }
+      } catch (error) {
+        console.error('Failed to copy password', error);
+      }
     }
   };
 
