@@ -1,9 +1,7 @@
 import React from 'react';
+import { PasswordMode } from '@enums/passwordMode';
 import { cleanup, render, screen } from '@testing-library/react';
-
-import '@testing-library/jest-dom/extend-expect';
-
-import { PasswordMode } from '../../enums/passwordMode';
+import { afterEach, describe, expect, it } from 'vitest';
 
 import { GeneratePassword } from './index';
 

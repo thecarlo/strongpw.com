@@ -20,7 +20,7 @@ export const App = () => {
           symbols={true}
         />
 
-        <div className="source-code">
+        <div className="source">
           <a
             target="_blank"
             href="https://github.com/thecarlo/strongpw.com"
