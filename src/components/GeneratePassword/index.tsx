@@ -63,6 +63,12 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       );
 
       setPassword(newPassword);
+
+      const selection = window.getSelection();
+
+      if (selection) {
+        selection.removeAllRanges();
+      }
     } catch (error) {
       console.error('Failed to generate password', error);
     }
