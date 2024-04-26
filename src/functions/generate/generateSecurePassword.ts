@@ -11,47 +11,47 @@ export const generateSecurePassword = (
 
   const numberChars = '0123456789';
 
-  const symbolChars = '!@#$%^&*()_+-=[]{}|;:",.<>?';
+  const symbolChars = '!@#$%^&*()_+-=[]{}|;:,.<>?';
 
-  let possibleChars = '';
-
-  if (options.lowercase) possibleChars += lowercaseChars;
-
-  if (options.uppercase) possibleChars += uppercaseChars;
-
-  if (options.numbers) possibleChars += numberChars;
-
-  if (options.symbols) possibleChars += symbolChars;
+  const possibleChars = [
+    options.lowercase ? lowercaseChars : '',
+    options.uppercase ? uppercaseChars : '',
+    options.numbers ? numberChars : '',
+    options.symbols ? symbolChars : '',
+  ]
+    .filter(Boolean)
+    .join('');
 
   if (possibleChars.length === 0) {
     throw new Error('At least one character type should be selected');
   }
 
-  const randomValues = new Uint8Array(options.length);
+  const randomIndexes = new Uint32Array(options.length);
 
-  crypto.getRandomValues(randomValues);
-  let password = '';
+  crypto.getRandomValues(randomIndexes);
 
-  const allCategories = [
-    { enabled: options.lowercase, chars: lowercaseChars },
-    { enabled: options.uppercase, chars: uppercaseChars },
-    { enabled: options.numbers, chars: numberChars },
-    { enabled: options.symbols, chars: symbolChars },
-  ];
+  const passwordChars = Array.from(randomIndexes, (value) => {
+    return possibleChars[value % possibleChars.length];
+  });
 
-  for (const category of allCategories) {
-    if (category.enabled) {
-      const randomIndex = Math.floor(Math.random() * category.chars.length);
+  const ensuredCategories = [
+    options.lowercase ? lowercaseChars : '',
+    options.uppercase ? uppercaseChars : '',
+    options.numbers ? numberChars : '',
+    options.symbols ? symbolChars : '',
+  ]
+    .filter(Boolean)
+    .map((chars) => {
+      const randomIndex = new Uint32Array(1);
 
-      password += category.chars[randomIndex];
-    }
-  }
+      crypto.getRandomValues(randomIndex);
 
-  for (let i = password.length; i < options.length; i++) {
-    const randomIndex = randomValues[i] % possibleChars.length;
+      return chars[randomIndex[0] % chars.length];
+    });
 
-    password += possibleChars[randomIndex];
-  }
+  const completePassword = ensuredCategories
+    .concat(passwordChars.slice(ensuredCategories.length))
+    .join('');
 
-  return shufflePassword(password);
+  return shufflePassword(completePassword);
 };
