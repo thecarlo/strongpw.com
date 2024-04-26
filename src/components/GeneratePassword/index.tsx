@@ -17,7 +17,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const [checkedState, setCheckedState] = useState({
     symbols: true,
     numbers: true,
-    capitalize: false,
+    capitalize: true,
   });
 
   const passwordRef = useRef<HTMLPreElement>(null);
