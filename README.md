@@ -2,6 +2,8 @@
 
 ## Description
 
+![alt text](images/strongpw.png)
+
 Built with React 18 and Vite.
 
 Generates a strong password in the following modes:
