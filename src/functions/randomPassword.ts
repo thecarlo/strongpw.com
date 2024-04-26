@@ -1,8 +1,8 @@
 import { generatePassphrase } from '@humankode/secure-passphrase-generator';
-import password from 'secure-random-password';
 
 import { PasswordMode } from '../enums/passwordMode';
 import { PassphraseConfiguration } from '../interfaces/passphraseConfiguration';
+import { generateSecurePassword } from './generate/generateSecurePassword';
 
 export const randomPassword = (
   passwordMode: PasswordMode,
@@ -52,18 +52,11 @@ export const randomPassword = (
     throw new Error('symbols parameter is undefined');
   }
 
-  const characters = [];
-
-  lowercase && characters.push(password.lower);
-
-  uppercase && characters.push(password.upper);
-
-  numbers && characters.push(password.digits);
-
-  symbols && characters.push(password.symbols);
-
-  return password.randomPassword({
-    length: length,
-    characters: characters,
+  return generateSecurePassword({
+    length,
+    lowercase,
+    uppercase,
+    numbers,
+    symbols,
   });
 };
