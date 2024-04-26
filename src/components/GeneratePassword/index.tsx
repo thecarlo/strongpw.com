@@ -45,7 +45,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           selection.addRange(range);
         }
       } catch (error) {
-        console.error('Failed to copy password', error);
+        console.error('Failed to copy password');
       }
     }
   };
@@ -70,7 +70,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         selection.removeAllRanges();
       }
     } catch (error) {
-      console.error('Failed to generate password', error);
+      console.error('Failed to generate password');
     }
   };
 
@@ -177,7 +177,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
               setPassword(newPassword);
             } catch (error) {
-              console.error('Error generating password', error);
+              console.error('Error generating password');
             }
           }}
         />
