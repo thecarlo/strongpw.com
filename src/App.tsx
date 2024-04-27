@@ -14,7 +14,7 @@ export const App = () => {
 
           <GeneratePassword
             passwordMode={PasswordMode.Password}
-            length={25}
+            length={4}
             lowercase={true}
             uppercase={true}
             numbers={true}

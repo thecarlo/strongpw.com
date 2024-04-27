@@ -13,14 +13,14 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const { length: defaultLength, lowercase, uppercase } = props;
 
   const [passwordMode, setPasswordMode] = useState<PasswordMode>(
-    PasswordMode.Password
+    PasswordMode.Passphrase
   );
 
   const [passwordStrength, setPasswordStrength] = useState<string>('');
 
   const [checkedState, setCheckedState] = useState({
     symbols: true,
-    numbers: true,
+    numbers: false,
     capitalize: true,
   });
 
@@ -91,12 +91,12 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       setPasswordStrength(strengthResult.strength);
     }
   }, [
-    passwordStrength,
     passwordMode,
     length,
     uppercase,
     lowercase,
     checkedState,
+    passwordStrength,
   ]);
 
   const handleOnChange = (checkedName: keyof typeof checkedState) => {
@@ -116,7 +116,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       ...prev,
       numbers: newMode === PasswordMode.Password,
       symbols: newMode === PasswordMode.Password,
-      capitalize: newMode === PasswordMode.Passphrase ? prev.capitalize : false,
+      capitalize: newMode === PasswordMode.Passphrase,
     }));
 
     handleOnGenerate();
@@ -173,19 +173,6 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           <input
             type="radio"
             className="w-6 h-6 text-red-600"
-            id="password"
-            value="password"
-            checked={passwordMode === PasswordMode.Password}
-            onChange={() => handlePasswordModeChange(PasswordMode.Password)}
-          />
-
-          <span className="ml-2">Password</span>
-        </label>
-
-        <label className="inline-flex items-center">
-          <input
-            type="radio"
-            className="w-6 h-6 text-red-600"
             id="passphrase"
             value="passphrase"
             checked={passwordMode === PasswordMode.Passphrase}
@@ -193,6 +180,19 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           />
 
           <span className="ml-2">Passphrase</span>
+        </label>
+
+        <label className="inline-flex items-center">
+          <input
+            type="radio"
+            className="w-6 h-6 text-red-600"
+            id="password"
+            value="password"
+            checked={passwordMode === PasswordMode.Password}
+            onChange={() => handlePasswordModeChange(PasswordMode.Password)}
+          />
+
+          <span className="ml-2">Password</span>
         </label>
       </div>
 
