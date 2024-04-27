@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/indent */
 import React, { useEffect, useRef, useState } from 'react';
+import { checkPasswordStrength } from '@functions/checkPasswordStrength';
 
 import { PasswordMode } from '../../enums/passwordMode';
 import { randomPassword } from '../../functions/randomPassword';
@@ -13,6 +15,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const [passwordMode, setPasswordMode] = useState<PasswordMode>(
     PasswordMode.Password
   );
+
+  const [passwordStrength, setPasswordStrength] = useState<string>('');
 
   const [checkedState, setCheckedState] = useState({
     symbols: true,
@@ -64,6 +68,10 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
       setPassword(newPassword);
 
+      const strengthResult = checkPasswordStrength(password);
+
+      setPasswordStrength(strengthResult.strength);
+
       const selection = window.getSelection();
 
       if (selection) {
@@ -76,14 +84,19 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   useEffect(() => {
     handleOnGenerate();
+
+    if (password) {
+      const strengthResult = checkPasswordStrength(password);
+
+      setPasswordStrength(strengthResult.strength);
+    }
   }, [
+    passwordStrength,
     passwordMode,
     length,
     uppercase,
     lowercase,
-    checkedState.numbers,
-    checkedState.symbols,
-    checkedState.capitalize,
+    checkedState,
   ]);
 
   const handleOnChange = (checkedName: keyof typeof checkedState) => {
@@ -229,6 +242,42 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
             <i className="fa fa-refresh" aria-hidden="true"></i>
           </div>
         </button>
+      </div>
+
+      <div
+        id="password-strength"
+        className="mt-20 relative w-full overflow-hidden bg-white shadow-lg dark:bg-gray-800"
+      >
+        <a href="#" className="block w-full h-full">
+          <div className="px-4 py-4">
+            <p className="ml-2 text-lg text-gray-700 border-gray-200 dark:text-white text-center">
+              Password Strength:{' '}
+              <span
+                className={`${
+                  passwordStrength === 'Weak'
+                    ? 'text-red-500 w-1/3'
+                    : passwordStrength === 'Moderate'
+                    ? 'text-yellow-500 w-2/3'
+                    : 'text-green-500 w-full'
+                }`}
+              >
+                {passwordStrength}
+              </span>
+            </p>
+          </div>
+
+          <div className="w-full h-3 bg-gray-100">
+            <div
+              className={`h-full text-xs text-center text-white ${
+                passwordStrength === 'Weak'
+                  ? 'bg-red-500 w-1/3'
+                  : passwordStrength === 'Moderate'
+                  ? 'bg-yellow-500 w-2/3'
+                  : 'bg-green-500 w-full'
+              }`}
+            ></div>
+          </div>
+        </a>
       </div>
     </div>
   );
