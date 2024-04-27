@@ -27,8 +27,6 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const [password, setPassword] = useState<string>('');
 
   const handleOnCopy = async () => {
-    console.log('hai');
-
     if (passwordRef.current) {
       try {
         const textToCopy = passwordRef.current.textContent ?? '';
