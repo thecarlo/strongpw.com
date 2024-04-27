@@ -233,4 +233,32 @@ describe('GeneratePassword', () => {
 
     expect(lengthDisplay).toBeInTheDocument();
   });
+
+  it('should toggle the checkbox state when a checkbox is clicked', async () => {
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        length={25}
+        uppercase={true}
+        lowercase={true}
+        numbers={true}
+        symbols={true}
+      />
+    );
+
+    const symbolsCheckbox = screen.getByRole('checkbox', {
+      name: /Symbols/i,
+    }) as HTMLInputElement;
+
+    // Check initial state
+    expect(symbolsCheckbox.checked).toBe(true);
+
+    fireEvent.click(symbolsCheckbox);
+
+    expect(symbolsCheckbox.checked).toBe(false);
+
+    fireEvent.click(symbolsCheckbox);
+
+    expect(symbolsCheckbox.checked).toBe(true);
+  });
 });
