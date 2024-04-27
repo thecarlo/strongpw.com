@@ -5,7 +5,7 @@ import { randomPassword } from '../../functions/randomPassword';
 import { GeneratePasswordProps } from '../../interfaces/props/generatePasswordProps';
 import { Checkbox } from '../Checkbox';
 
-import './styles.scss';
+import './style.scss';
 
 export const GeneratePassword = (props: GeneratePasswordProps) => {
   const { length: defaultLength, lowercase, uppercase } = props;
@@ -27,6 +27,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const [password, setPassword] = useState<string>('');
 
   const handleOnCopy = async () => {
+    console.log('hai');
+
     if (passwordRef.current) {
       try {
         const textToCopy = passwordRef.current.textContent ?? '';
@@ -125,37 +127,68 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   };
 
   return (
-    <div className={`generate checkbox-spacing`}>
-      <div className="radio-buttons">
-        <label>
+    <div className="text-neutral-400 font-robotomono">
+      <div className="mb-8 p-4 password-container bg-gray-800 rounded-lg">
+        <div className="flex justify-between items-center w-full">
+          <pre
+            className="outline-none font-robotomono text-lg whitespace-pre-wrap break-words overflow-x-auto w-full max-w-[calc(100%-3rem)] mr-4 focus:bg-gray-800"
+            title="generated password"
+            id="password-value"
+            ref={passwordRef}
+            contentEditable
+            suppressContentEditableWarning={true}
+          >
+            {password}
+          </pre>
+
+          <div
+            className="leading-tight shadow-md hover:text-blue-500 active:text-blue-500 hover:shadow-lg active:shadow-lg transition duration-150 ease-in-out"
+            title="Copy Password"
+            onClick={handleOnCopy}
+          >
+            <i className="fa fa-copy fa-xl" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+      <label>Password Mode</label>
+
+      <div id="radio-password" className="flex items-center mt-1 mb-8 gap-8">
+        <label className="inline-flex items-center">
           <input
             type="radio"
+            className="w-6 h-6 text-red-600"
+            id="password"
             value="password"
             checked={passwordMode === PasswordMode.Password}
             onChange={() => handlePasswordModeChange(PasswordMode.Password)}
-          />{' '}
-          Password
+          />
+
+          <span className="ml-2">Password</span>
         </label>
 
-        <label>
+        <label className="inline-flex items-center">
           <input
             type="radio"
+            className="w-6 h-6 text-red-600"
+            id="passphrase"
             value="passphrase"
             checked={passwordMode === PasswordMode.Passphrase}
             onChange={() => handlePasswordModeChange(PasswordMode.Passphrase)}
-          />{' '}
-          Passphrase
+          />
+
+          <span className="ml-2">Passphrase</span>
         </label>
       </div>
 
-      <label className="slider-label checkbox-spacing">
+      <label className="font-robotomono">
         {passwordMode === PasswordMode.Password ? 'Password Length' : 'Words'}
       </label>
 
-      <div className="slider">
+      <div className="slider mb-8 mt-1">
         <input
-          className="length"
           type="range"
+          className="w-full"
           min={passwordMode === PasswordMode.Password ? 12 : 3}
           max={passwordMode === PasswordMode.Password ? 100 : 10}
           value={length}
@@ -182,41 +215,21 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           }}
         />
 
-        <div className="password-length">{length}</div>
+        <div>{length}</div>
       </div>
 
-      <div className="form-check">{getCheckboxes()}</div>
-
-      <div className="password-container">
-        <pre
-          className="password-value"
-          title="generated password"
-          id="password-value"
-          ref={passwordRef}
-          contentEditable
-          suppressContentEditableWarning={true}
-        >
-          {password}
-        </pre>
-      </div>
+      <div className="mb-8 mt-1">{getCheckboxes()}</div>
 
       <div className="copy-container">
         <button
           type="button"
-          className="btn btn-copy btn-lg"
-          title="Copy Password"
-          onClick={handleOnCopy}
-        >
-          <i className="fa fa-copy" aria-hidden="true"></i> Copy Password
-        </button>
-
-        <button
-          type="button"
-          className="btn btn-regenerate btn-lg"
-          title="Regenerate Password"
           onClick={handleOnGenerate}
+          className="py-5 px-2 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none rounded-lg"
         >
-          <i className="fa fa-refresh" aria-hidden="true"></i>
+          Generate
+          <div className="ml-3">
+            <i className="fa fa-refresh" aria-hidden="true"></i>
+          </div>
         </button>
       </div>
     </div>
