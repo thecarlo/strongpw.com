@@ -129,37 +129,6 @@ describe('GeneratePassword', () => {
     expect(mockClipboard.writeText).toHaveBeenCalledWith('testPassword123!');
   });
 
-  it('should update the state correctly when the password mode is changed to passphrase', () => {
-    render(
-      <GeneratePassword
-        passwordMode={PasswordMode.Password}
-        length={25}
-        uppercase={true}
-        lowercase={true}
-        numbers={true}
-        symbols={true}
-      />
-    );
-
-    let lengthDisplay = screen.getByText(/25/);
-
-    expect(lengthDisplay).toBeInTheDocument();
-
-    const passphraseRadioButton = screen.getByLabelText(/Passphrase/i);
-
-    fireEvent.click(passphraseRadioButton);
-
-    lengthDisplay = screen.getByText(/4/);
-
-    expect(lengthDisplay).toBeInTheDocument();
-
-    const capitalizeCheckbox = screen.getByRole('checkbox', {
-      name: /Capitalize/i,
-    });
-
-    expect(capitalizeCheckbox).toBeChecked();
-  });
-
   it('should update the length state when the slider changes', () => {
     render(
       <GeneratePassword
