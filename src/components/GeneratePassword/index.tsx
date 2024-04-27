@@ -68,7 +68,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
       setPassword(newPassword);
 
-      const strengthResult = checkPasswordStrength(password);
+      const strengthResult = checkPasswordStrength(newPassword);
 
       setPasswordStrength(strengthResult.strength);
 
@@ -101,6 +101,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   const handleOnChange = (checkedName: keyof typeof checkedState) => {
     setCheckedState((prev) => ({ ...prev, [checkedName]: !prev[checkedName] }));
+
+    handleOnGenerate();
   };
 
   const handlePasswordModeChange = (newMode: PasswordMode) => {
@@ -116,6 +118,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       symbols: newMode === PasswordMode.Password,
       capitalize: newMode === PasswordMode.Passphrase ? prev.capitalize : false,
     }));
+
+    handleOnGenerate();
   };
 
   const getCheckboxes = () => {
