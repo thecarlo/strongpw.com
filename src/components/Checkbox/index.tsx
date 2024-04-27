@@ -1,7 +1,5 @@
 import React, { ChangeEventHandler } from 'react';
 
-import './styles.scss';
-
 export const Checkbox = ({
   index,
   name,
@@ -15,8 +13,9 @@ export const Checkbox = ({
   onCheckboxChange: ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
 }) => (
-  <label className="checkbox">
+  <label className="mr-4">
     <input
+      className="mr-1"
       type="checkbox"
       id={`pw-checkbox-${index}`}
       name={name}

@@ -3,13 +3,13 @@ import React from 'react';
 import { GeneratePassword } from './components/GeneratePassword';
 import { PasswordMode } from './enums/passwordMode';
 
-import './App.scss';
-
 export const App = () => {
   return (
     <React.StrictMode>
-      <main>
-        <h1>Strong password generator</h1>
+      <main className="m-auto max-w-xl">
+        <h1 className="mb-12 font-robotomono font-semibold text-3xl text-center text-gray-500 mt-12">
+          Strong password generator
+        </h1>
 
         <GeneratePassword
           passwordMode={PasswordMode.Password}
