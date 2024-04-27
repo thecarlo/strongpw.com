@@ -126,7 +126,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   return (
     <div className="text-neutral-400 font-robotomono">
-      <div className="mb-8 p-4 password-container bg-gray-800 rounded-lg">
+      <div className="mb-12 p-4 password-container bg-gray-800 rounded-lg">
         <div className="flex justify-between items-center w-full">
           <pre
             className="outline-none font-robotomono text-lg whitespace-pre-wrap break-words overflow-x-auto w-full max-w-[calc(100%-3rem)] mr-4 focus:bg-gray-800"
@@ -151,7 +151,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
       <label>Password Mode</label>
 
-      <div id="radio-password" className="flex items-center mt-1 mb-8 gap-8">
+      <div id="radio-password" className="flex items-center mt-1 mb-12 gap-8">
         <label className="inline-flex items-center">
           <input
             type="radio"
@@ -183,7 +183,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         {passwordMode === PasswordMode.Password ? 'Password Length' : 'Words'}
       </label>
 
-      <div className="slider mb-8 mt-1">
+      <div className="slider mb-12 mt-1">
         <input
           type="range"
           className="w-full"
@@ -216,7 +216,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         <div>{length}</div>
       </div>
 
-      <div className="mb-8 mt-1">{getCheckboxes()}</div>
+      <div className="mb-12 mt-1">{getCheckboxes()}</div>
 
       <div className="copy-container">
         <button
