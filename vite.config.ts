@@ -14,21 +14,28 @@ export default defineConfig({
   ],
   root: './',
   publicDir: 'public',
+
   test: {
     coverage: {
+      clean: true,
       provider: 'istanbul',
-      reporter: ['text', 'json', 'html'],
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['src/**/*.js', 'src/index.tsx'],
+      reporter: ['html', 'text', 'json'],
+      include: ['src/**/*.ts?(x)'],
+      exclude: ['src/**/*.js?(x)', 'src/index.tsx', 'src/**/*.test.ts?(x)'],
       all: true,
-      // lines: 80,
-      // functions: 80,
-      // branches: 80,
-      // statements: 80,
+      reportsDirectory: './coverage',
+      thresholds: {
+        autoUpdate: true,
+        statements: 93.33,
+        branches: 91.3,
+        functions: 81.81,
+        lines: 94.05,
+      },
     },
     globals: true,
     environment: 'jsdom',
     setupFiles: './setupTests.ts',
+    reporters: ['verbose'],
   },
 
   resolve: {
