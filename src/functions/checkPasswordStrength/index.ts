@@ -37,17 +37,13 @@ export const checkPasswordStrength = (
     score += 1;
   }
 
-  let strength: 'Weak' | 'Moderate' | 'Strong';
-
-  if (score < 3) {
-    strength = 'Weak';
-  } else if (score < 5) {
-    strength = 'Moderate';
-  } else {
-    strength = 'Strong';
+  if (score <= 3) {
+    return { strength: 'Weak' };
   }
 
-  return {
-    strength: strength,
-  };
+  if (score < 5) {
+    return { strength: 'Moderate' };
+  }
+
+  return { strength: 'Strong' };
 };

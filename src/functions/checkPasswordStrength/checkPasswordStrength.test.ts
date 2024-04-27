@@ -57,7 +57,7 @@ describe('checkPasswordStrength', () => {
     expect(result.strength).toBe('Moderate');
   });
 
-  it('should return Strong for 20 characters, alphanumeric, numbers, special, lowercase', () => {
+  it('should return Strong for 20 characters, alphanumeric, numbers, special, mixed case', () => {
     const password = 'foo-bar-baz-foo-Bar1';
 
     const result = checkPasswordStrength(password);
