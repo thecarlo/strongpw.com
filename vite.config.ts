@@ -19,7 +19,7 @@ export default defineConfig({
       provider: 'istanbul',
       reporter: ['text', 'json', 'html'],
       include: ['src/**/*.ts', 'src/**/*.tsx'],
-      exclude: ['src/**/*.js', 'src/main.tsx'],
+      exclude: ['src/**/*.js', 'src/index.tsx'],
       all: true,
       // lines: 80,
       // functions: 80,
