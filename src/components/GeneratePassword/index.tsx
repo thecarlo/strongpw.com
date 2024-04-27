@@ -128,10 +128,10 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   return (
     <div className="text-neutral-400 font-robotomono">
-      <div className="mb-8 p-4 password-container bg-gray-800">
+      <div className="mb-8 p-4 password-container bg-gray-800 rounded-lg">
         <div className="flex justify-between items-center w-full">
           <pre
-            className="outline-none font-robotomono text-xl whitespace-pre-wrap break-words overflow-x-auto w-full max-w-[calc(100%-3rem)] mr-4 focus:text-white focus:bg-gray-800"
+            className="outline-none font-robotomono text-lg whitespace-pre-wrap break-words overflow-x-auto w-full max-w-[calc(100%-3rem)] mr-4 focus:bg-gray-800"
             title="generated password"
             id="password-value"
             ref={passwordRef}
@@ -157,7 +157,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         <label className="inline-flex items-center">
           <input
             type="radio"
-            className="w-5 h-5 text-red-600"
+            className="w-6 h-6 text-red-600"
             id="password"
             value="password"
             checked={passwordMode === PasswordMode.Password}
@@ -170,7 +170,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         <label className="inline-flex items-center">
           <input
             type="radio"
-            className="w-5 h-5 text-red-600"
+            className="w-6 h-6 text-red-600"
             id="passphrase"
             value="passphrase"
             checked={passwordMode === PasswordMode.Passphrase}
@@ -188,6 +188,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       <div className="slider mb-8 mt-1">
         <input
           type="range"
+          className="w-full"
           min={passwordMode === PasswordMode.Password ? 12 : 3}
           max={passwordMode === PasswordMode.Password ? 100 : 10}
           value={length}
@@ -222,30 +223,14 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       <div className="copy-container">
         <button
           type="button"
-          className="btn btn-regenerate btn-lg"
-          title="Regenerate Password"
           onClick={handleOnGenerate}
+          className="py-5 px-2 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none rounded-lg"
         >
-          <i className="fa fa-refresh" aria-hidden="true"></i>
-        </button>
-      </div>
-
-      <div>
-        <div className="mb-3">
-          <div className="relative inline-block w-10 mr-2 align-middle select-none">
-            <input
-              type="checkbox"
-              name="toggle"
-              id="Blue"
-              className="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
-            />
-            <label
-              htmlFor="Blue"
-              className="block h-6 overflow-hidden bg-gray-300 rounded-full cursor-pointer"
-            ></label>
+          Generate
+          <div className="ml-3">
+            <i className="fa fa-refresh" aria-hidden="true"></i>
           </div>
-          <span className="font-medium text-gray-400">Blue</span>
-        </div>
+        </button>
       </div>
     </div>
   );
