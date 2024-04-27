@@ -152,31 +152,32 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       </div>
 
       <label>Password Mode</label>
-      <div id="radio-password" className="flex items-center mt-1 mb-8">
-        <input
-          type="radio"
-          className="form-radio h-4 w-4 text-blue-600 mr-1"
-          id="password"
-          value="password"
-          checked={passwordMode === PasswordMode.Password}
-          onChange={() => handlePasswordModeChange(PasswordMode.Password)}
-        />
 
-        <label htmlFor="password" className="font-robotomono">
-          Password
+      <div id="radio-password" className="flex items-center mt-1 mb-8 gap-8">
+        <label className="inline-flex items-center">
+          <input
+            type="radio"
+            className="w-5 h-5 text-red-600"
+            id="password"
+            value="password"
+            checked={passwordMode === PasswordMode.Password}
+            onChange={() => handlePasswordModeChange(PasswordMode.Password)}
+          />
+
+          <span className="ml-2">Password</span>
         </label>
 
-        <input
-          type="radio"
-          className="form-radio h-4 w-4 text-blue-600 ml-4 mr-1"
-          id="passphrase"
-          value="passphrase"
-          checked={passwordMode === PasswordMode.Passphrase}
-          onChange={() => handlePasswordModeChange(PasswordMode.Passphrase)}
-        />
+        <label className="inline-flex items-center">
+          <input
+            type="radio"
+            className="w-5 h-5 text-red-600"
+            id="passphrase"
+            value="passphrase"
+            checked={passwordMode === PasswordMode.Passphrase}
+            onChange={() => handlePasswordModeChange(PasswordMode.Passphrase)}
+          />
 
-        <label htmlFor="passphrase" className="font-robotomono">
-          Passphrase
+          <span className="ml-2">Passphrase</span>
         </label>
       </div>
 
@@ -227,6 +228,24 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         >
           <i className="fa fa-refresh" aria-hidden="true"></i>
         </button>
+      </div>
+
+      <div>
+        <div className="mb-3">
+          <div className="relative inline-block w-10 mr-2 align-middle select-none">
+            <input
+              type="checkbox"
+              name="toggle"
+              id="Blue"
+              className="checked:bg-blue-500 outline-none focus:outline-none right-4 checked:right-0 duration-200 ease-in absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+            />
+            <label
+              htmlFor="Blue"
+              className="block h-6 overflow-hidden bg-gray-300 rounded-full cursor-pointer"
+            ></label>
+          </div>
+          <span className="font-medium text-gray-400">Blue</span>
+        </div>
       </div>
     </div>
   );
