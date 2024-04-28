@@ -308,7 +308,7 @@ describe('GeneratePassword', () => {
     expect(generatedPassword.textContent?.length).toBe(20);
   });
 
-  it('should display the correct title and color for a Weak password', async () => {
+  it('should display Weak password for a password that is 10 characters in length', async () => {
     render(
       <GeneratePassword
         passwordMode={PasswordMode.Password}
@@ -334,5 +334,33 @@ describe('GeneratePassword', () => {
       passwordStrengthIndicatorFirstChild?.firstChild;
 
     expect(passwordStrengthIndicatorSecondChild).toHaveClass('bg-red-500');
+  });
+
+  it('should display Strong password for a password that is 35 characters in length', async () => {
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        uppercase={true}
+        lowercase={true}
+        numbers={true}
+        symbols={true}
+      />
+    );
+
+    fireEvent.change(screen.getByRole('slider'), { target: { value: '35' } });
+
+    const passwordStrengthIndicator = screen.getByTitle(
+      /Password Strength: Strong/
+    );
+
+    expect(passwordStrengthIndicator).toBeInTheDocument();
+
+    const passwordStrengthIndicatorFirstChild =
+      passwordStrengthIndicator.firstElementChild;
+
+    const passwordStrengthIndicatorSecondChild =
+      passwordStrengthIndicatorFirstChild?.firstChild;
+
+    expect(passwordStrengthIndicatorSecondChild).toHaveClass('bg-green-500');
   });
 });
