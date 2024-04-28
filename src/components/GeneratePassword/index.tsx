@@ -100,9 +100,27 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   ]);
 
   const handleOnChange = (checkedName: keyof typeof checkedState) => {
-    setCheckedState((prev) => ({ ...prev, [checkedName]: !prev[checkedName] }));
+    setCheckedState((prev) => {
+      const newState = { ...prev, [checkedName]: !prev[checkedName] };
 
-    handleOnGenerate();
+      const newPassword = randomPassword(
+        passwordMode,
+        length,
+        lowercase,
+        uppercase,
+        newState.numbers,
+        newState.symbols,
+        newState.capitalize
+      );
+
+      setPassword(newPassword);
+
+      const strengthResult = checkPasswordStrength(newPassword);
+
+      setPasswordStrength(strengthResult.strength);
+
+      return newState;
+    });
   };
 
   const handlePasswordModeChange = (newMode: PasswordMode) => {
@@ -112,14 +130,32 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
     setLength(newLength);
 
-    setCheckedState((prev) => ({
-      ...prev,
+    const newState = {
       numbers: newMode === PasswordMode.Password,
       symbols: newMode === PasswordMode.Password,
       capitalize: newMode === PasswordMode.Passphrase,
+    };
+
+    setCheckedState((prev) => ({
+      ...prev,
+      ...newState,
     }));
 
-    handleOnGenerate();
+    const newPassword = randomPassword(
+      newMode,
+      newLength,
+      lowercase,
+      uppercase,
+      newState.numbers,
+      newState.symbols,
+      newState.capitalize
+    );
+
+    setPassword(newPassword);
+
+    const strengthResult = checkPasswordStrength(newPassword);
+
+    setPasswordStrength(strengthResult.strength);
   };
 
   const getCheckboxes = () => {
@@ -242,6 +278,10 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
               );
 
               setPassword(newPassword);
+
+              const strengthResult = checkPasswordStrength(newPassword);
+
+              setPasswordStrength(strengthResult.strength);
             } catch (error) {
               console.error('Error generating password');
             }

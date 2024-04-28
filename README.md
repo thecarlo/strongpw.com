@@ -10,7 +10,7 @@ Generates a strong password in the following modes:
 
 - passphrase
   - 3 - 10 words
-  - Capitalization and Numbers options
+  - Capitalize and Numbers options
 - password
   - 12 - 100 characters
   - Symbols and Numbers options
