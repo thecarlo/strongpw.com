@@ -2,7 +2,7 @@
 
 ## Description
 
-![strongpw.com](images/strongpw.png?v=2)
+![strongpw.com](images/strongpw.png?v=3)
 
 Built with React 18 and Vite.
 
