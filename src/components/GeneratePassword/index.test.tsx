@@ -326,5 +326,13 @@ describe('GeneratePassword', () => {
     );
 
     expect(passwordStrengthIndicator).toBeInTheDocument();
+
+    const passwordStrengthIndicatorFirstChild =
+      passwordStrengthIndicator.firstElementChild;
+
+    const passwordStrengthIndicatorSecondChild =
+      passwordStrengthIndicatorFirstChild?.firstChild;
+
+    expect(passwordStrengthIndicatorSecondChild).toHaveClass('bg-red-500');
   });
 });
