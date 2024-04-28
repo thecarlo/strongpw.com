@@ -8,7 +8,7 @@ export const App = () => {
     <React.StrictMode>
       <main className="flex flex-col justify-between min-h-screen m-auto max-w-xl text-lg px-6">
         <div>
-          <h1 className="mt-20 mb-12 font-robotomono font-semibold text-3xl text-center text-gray-500">
+          <h1 className="mt-8 sm:mt-20 mb-12 font-robotomono font-semibold text-3xl text-center text-gray-500">
             Strong password generator
           </h1>
 
