@@ -1,7 +1,12 @@
 import React from 'react';
 import { PasswordMode } from '@enums/passwordMode';
-import { randomPassword } from '@functions/randomPassword';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import {
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/react';
 import { waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
@@ -301,5 +306,25 @@ describe('GeneratePassword', () => {
     const generatedPassword = screen.getByTitle('generated password');
 
     expect(generatedPassword.textContent?.length).toBe(20);
+  });
+
+  it('should display the correct title and color for a Weak password', async () => {
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        uppercase={false}
+        lowercase={true}
+        numbers={false}
+        symbols={false}
+      />
+    );
+
+    fireEvent.change(screen.getByRole('slider'), { target: { value: '10' } });
+
+    const passwordStrengthIndicator = screen.getByTitle(
+      /Password Strength: Weak/
+    );
+
+    expect(passwordStrengthIndicator).toBeInTheDocument();
   });
 });
