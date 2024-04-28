@@ -5,36 +5,40 @@ export const checkPasswordStrength = (
 ): PasswordStrengthResult => {
   let score = 0;
 
+  if (password.length >= 16) {
+    score++;
+  }
+
   if (password.length >= 20) {
-    score += 1;
+    score++;
   }
 
   if (password.length >= 25) {
-    score += 1;
+    score++;
   }
 
-  if (password.length >= 35) {
-    score += 1;
-  }
-
-  if (password.length >= 45) {
-    score += 1;
+  if (password.length >= 30) {
+    score++;
   }
 
   if (/[A-Z]/.test(password)) {
-    score += 1;
+    score++;
   }
 
   if (/[a-z]/.test(password)) {
-    score += 1;
+    score++;
   }
 
   if (/[0-9]/.test(password)) {
-    score += 1;
+    score++;
   }
 
   if (/[!@#$%^&*()_+\-=[\]{}|;:'",.<>?]/.test(password)) {
-    score += 1;
+    score++;
+  }
+
+  if (password.length < 12 && score >= 0) {
+    score--;
   }
 
   if (score <= 3) {
