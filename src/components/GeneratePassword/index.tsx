@@ -10,13 +10,15 @@ import { Checkbox } from '../Checkbox';
 import './style.scss';
 
 export const GeneratePassword = (props: GeneratePasswordProps) => {
-  const { length: defaultLength, lowercase, uppercase } = props;
+  const { lowercase, uppercase, passwordMode: mode } = props;
 
-  const [passwordMode, setPasswordMode] = useState<PasswordMode>(
-    PasswordMode.Passphrase
-  );
+  const defaultLength = mode === PasswordMode.Password ? 15 : 4;
+
+  const [passwordMode, setPasswordMode] = useState<PasswordMode>(mode);
 
   const [passwordStrength, setPasswordStrength] = useState<string>('');
+
+  const [length, setLength] = useState<number>(defaultLength);
 
   const [checkedState, setCheckedState] = useState({
     symbols: true,
@@ -25,8 +27,6 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   });
 
   const passwordRef = useRef<HTMLPreElement>(null);
-
-  const [length, setLength] = useState<number>(defaultLength);
 
   const [password, setPassword] = useState<string>('');
 
@@ -108,7 +108,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const handlePasswordModeChange = (newMode: PasswordMode) => {
     setPasswordMode(newMode);
 
-    const newLength = newMode === PasswordMode.Passphrase ? 4 : 25;
+    const newLength = newMode === PasswordMode.Passphrase ? 4 : 15;
 
     setLength(newLength);
 
@@ -143,15 +143,15 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   return (
     <div className="text-neutral-400 font-robotomono">
-      <div className="mb-12 p-4 password-container bg-gray-800 rounded-lg">
+      <div className="p-4 password-container bg-gray-800">
         <div className="flex justify-between items-center w-full">
           <pre
             className="outline-none font-robotomono text-lg whitespace-pre-wrap break-words overflow-x-auto w-full max-w-[calc(100%-3rem)] mr-4 focus:bg-gray-800"
-            title="generated password"
             id="password-value"
             ref={passwordRef}
             contentEditable
             suppressContentEditableWarning={true}
+            title="generated password"
           >
             {password}
           </pre>
@@ -163,6 +163,24 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           >
             <i className="fa fa-copy fa-xl" aria-hidden="true"></i>
           </div>
+        </div>
+      </div>
+
+      <div
+        id="password-strength-indicator"
+        className="relative w-full overflow-hidden bg-white shadow-lg dark:bg-gray-800 mb-12"
+        title={`Password Strength: ${passwordStrength}`}
+      >
+        <div className="w-full h-2 bg-gray-100">
+          <div
+            className={`h-full text-xs text-center text-white ${
+              passwordStrength === 'Weak'
+                ? 'bg-red-500 w-1/3'
+                : passwordStrength === 'Moderate'
+                ? 'bg-yellow-500 w-2/3'
+                : 'bg-green-500 w-full'
+            }`}
+          ></div>
         </div>
       </div>
 
@@ -246,42 +264,6 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
             <i className="fa fa-refresh" aria-hidden="true"></i>
           </div>
         </button>
-      </div>
-
-      <div
-        id="password-strength"
-        className="mt-20 relative w-full overflow-hidden bg-white shadow-lg dark:bg-gray-800"
-      >
-        <a href="#" className="block w-full h-full">
-          <div className="px-4 py-4">
-            <p className="ml-2 text-lg text-gray-700 border-gray-200 dark:text-white text-center">
-              Password Strength:{' '}
-              <span
-                className={`${
-                  passwordStrength === 'Weak'
-                    ? 'text-red-500 w-1/3'
-                    : passwordStrength === 'Moderate'
-                    ? 'text-yellow-500 w-2/3'
-                    : 'text-green-500 w-full'
-                }`}
-              >
-                {passwordStrength}
-              </span>
-            </p>
-          </div>
-
-          <div className="w-full h-3 bg-gray-100">
-            <div
-              className={`h-full text-xs text-center text-white ${
-                passwordStrength === 'Weak'
-                  ? 'bg-red-500 w-1/3'
-                  : passwordStrength === 'Moderate'
-                  ? 'bg-yellow-500 w-2/3'
-                  : 'bg-green-500 w-full'
-              }`}
-            ></div>
-          </div>
-        </a>
       </div>
     </div>
   );

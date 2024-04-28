@@ -22,7 +22,7 @@ export const App = () => {
           />
         </div>
 
-        <div className="mb-10 text-gray-800 text-center text-base hover:text-gray-500">
+        <div className="mb-10 text-gray-700 text-center text-base hover:text-gray-500">
           <a
             target="_blank"
             className="hover:cursor-pointer"
