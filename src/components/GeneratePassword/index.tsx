@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useEffect, useRef, useState } from 'react';
 import { checkPasswordStrength } from '@functions/checkPasswordStrength';
+import { getClassNameByStrength } from '@functions/checkPasswordStrength/getClassnameByStrength';
 
 import { PasswordMode } from '../../enums/passwordMode';
 import { randomPassword } from '../../functions/randomPassword';
@@ -12,7 +13,14 @@ import './style.scss';
 export const GeneratePassword = (props: GeneratePasswordProps) => {
   const { lowercase, uppercase, passwordMode: mode } = props;
 
-  const defaultLength = mode === PasswordMode.Password ? 15 : 4;
+  const passphraseDefaultLength = 3;
+
+  const passwordDefaultLength = 15;
+
+  const defaultLength =
+    mode === PasswordMode.Password
+      ? passwordDefaultLength
+      : passphraseDefaultLength;
 
   const [passwordMode, setPasswordMode] = useState<PasswordMode>(mode);
 
@@ -23,7 +31,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const [checkedState, setCheckedState] = useState({
     symbols: true,
     numbers: false,
-    capitalize: true,
+    capitalize: false,
   });
 
   const passwordRef = useRef<HTMLPreElement>(null);
@@ -126,14 +134,17 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const handlePasswordModeChange = (newMode: PasswordMode) => {
     setPasswordMode(newMode);
 
-    const newLength = newMode === PasswordMode.Passphrase ? 4 : 15;
+    const newLength =
+      newMode === PasswordMode.Passphrase
+        ? passphraseDefaultLength
+        : passwordDefaultLength;
 
     setLength(newLength);
 
     const newState = {
       numbers: newMode === PasswordMode.Password,
       symbols: newMode === PasswordMode.Password,
-      capitalize: newMode === PasswordMode.Passphrase,
+      capitalize: false,
     };
 
     setCheckedState((prev) => ({
@@ -209,13 +220,9 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       >
         <div className="w-full h-2 bg-gray-100">
           <div
-            className={`h-full text-xs text-center text-white ${
-              passwordStrength === 'Weak'
-                ? 'bg-red-500 w-1/3'
-                : passwordStrength === 'Moderate'
-                ? 'bg-yellow-500 w-2/3'
-                : 'bg-green-500 w-full'
-            }`}
+            className={`h-full text-xs text-center text-white ${getClassNameByStrength(
+              passwordStrength
+            )}`}
           ></div>
         </div>
       </div>

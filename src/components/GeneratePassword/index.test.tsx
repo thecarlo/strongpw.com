@@ -9,6 +9,10 @@ import { GeneratePassword } from './index';
 afterEach(cleanup);
 
 describe('GeneratePassword', () => {
+  const passphraseDefaultLength = 3;
+
+  const passwordDefaultLength = 15;
+
   it('should render the Generate Button', () => {
     render(
       <GeneratePassword
@@ -120,7 +124,7 @@ describe('GeneratePassword', () => {
 
     const generatedPassword = screen.getByTitle('generated password');
 
-    expect(generatedPassword.textContent?.length).toBe(15);
+    expect(generatedPassword.textContent?.length).toBe(passwordDefaultLength);
   });
 
   it('should render the pre element with the generated passphrase if passwordMode === PasswordMode.Passphrase', () => {
@@ -189,7 +193,7 @@ describe('GeneratePassword', () => {
 
     const displayedLengthPassword = slider.value;
 
-    expect(displayedLengthPassword).toBe('15');
+    expect(displayedLengthPassword).toBe(passwordDefaultLength.toString());
 
     const passphraseRadioButton = screen.getByLabelText(/Passphrase/i);
 
@@ -197,7 +201,7 @@ describe('GeneratePassword', () => {
 
     const displayedLengthPassphrase = slider.value;
 
-    expect(displayedLengthPassphrase).toBe('4');
+    expect(displayedLengthPassphrase).toBe(passphraseDefaultLength.toString());
   });
 
   it('should correctly update UI and internal state when password mode changes', async () => {
@@ -222,18 +226,18 @@ describe('GeneratePassword', () => {
     await waitFor(() => {
       expect(passphraseRadio.checked).toBe(true);
 
-      expect(slider.value).toBe('4');
+      expect(slider.value).toBe(passphraseDefaultLength.toString());
     });
 
     fireEvent.click(passwordRadio);
 
-    expect(slider.value).toBe('15');
+    expect(slider.value).toBe(passwordDefaultLength.toString());
 
     fireEvent.click(passphraseRadio);
 
     expect(passphraseRadio.checked).toBe(true);
 
-    expect(slider.value).toBe('4');
+    expect(slider.value).toBe(passphraseDefaultLength.toString());
 
     const symbolsCheckbox = screen.queryByLabelText('Symbols');
 
@@ -243,7 +247,7 @@ describe('GeneratePassword', () => {
       'Capitalize'
     ) as HTMLInputElement;
 
-    expect(capitalizeCheckbox.checked).toBeTruthy();
+    expect(capitalizeCheckbox.checked).toBeFalsy();
 
     const lengthDisplay = screen.getByText(/Words/);
 
@@ -344,7 +348,7 @@ describe('GeneratePassword', () => {
     fireEvent.change(screen.getByRole('slider'), { target: { value: '35' } });
 
     const passwordStrengthIndicator = screen.getByTitle(
-      /Password Strength: Strong/
+      /Password Strength: Very Strong/
     );
 
     expect(passwordStrengthIndicator).toBeInTheDocument();

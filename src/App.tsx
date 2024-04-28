@@ -13,7 +13,7 @@ export const App = () => {
           </h1>
 
           <GeneratePassword
-            passwordMode={PasswordMode.Password}
+            passwordMode={PasswordMode.Passphrase}
             lowercase={true}
             uppercase={true}
             numbers={true}
