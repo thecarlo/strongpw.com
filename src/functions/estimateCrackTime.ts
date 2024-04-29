@@ -15,7 +15,10 @@ export const estimateCrackTime = (password: string): string => {
 
   if (hasUpper && hasLower && hasNumbers && hasSpecial) {
     key = 'allChars';
-  } else if (hasUpper && hasLower && hasNumbers) {
+  } else if (
+    (hasUpper && hasLower && hasNumbers) ||
+    (hasUpper && hasLower && hasSpecial)
+  ) {
     key = 'onlyAlphaNum';
   }
 
