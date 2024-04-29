@@ -207,7 +207,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           </pre>
 
           <div
-            className="leading-tight shadow-md hover:text-blue-500 active:text-blue-500 hover:shadow-lg active:shadow-lg transition duration-150 ease-in-out"
+            className="leading-tight shadow-md hover:text-blue-500 active:text-blue-600 hover:shadow-lg active:shadow-lg transition duration-150 ease-in-out"
             title="Copy Password"
             onClick={handleOnCopy}
           >
@@ -307,7 +307,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         <button
           type="button"
           onClick={handleOnGenerate}
-          className="py-4 px-2 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none rounded-lg mb-12"
+          className="py-4 px-2 flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 active:bg-blue-800 text-white w-full transition ease-in duration-200 text-center text-lg font-semibold shadow-md focus:outline-none rounded-lg mb-12"
         >
           Generate
           <div className="ml-3">
