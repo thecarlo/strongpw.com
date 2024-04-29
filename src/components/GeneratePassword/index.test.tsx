@@ -11,7 +11,7 @@ afterEach(cleanup);
 describe('GeneratePassword', () => {
   const passphraseDefaultLength = 3;
 
-  const passwordDefaultLength = 15;
+  const passwordDefaultLength = 12;
 
   it('should render the Generate Button', () => {
     render(
