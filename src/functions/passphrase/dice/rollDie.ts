@@ -1,3 +1,7 @@
 export const rollDie = (): number => {
-  return Math.floor(Math.random() * 6) + 1;
+  const array = new Uint8Array(1);
+
+  crypto.getRandomValues(array);
+
+  return (array[0] % 6) + 1;
 };
