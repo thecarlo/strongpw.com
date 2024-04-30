@@ -24,11 +24,11 @@ export const estimateCrackTime = (password: string): string => {
 
   const length = password.length;
 
-  if (length > 18) {
+  if (length >= 20) {
     return 'Trillions of years';
   } else if (length >= 8 && crackTimes[length]) {
     return crackTimes[length][key];
   }
 
-  return 'Not specified';
+  return 'Trillions of years';
 };
