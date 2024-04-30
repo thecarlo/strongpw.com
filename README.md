@@ -9,10 +9,10 @@ Built with React 18 and Vite.
 Generates a strong password in the following modes:
 
 - passphrase
-  - 3 - 10 words
+  - 2 - 10 words
   - Capitalize and Numbers options
 - password
-  - 12 - 100 characters
+  - 11 - 100 characters
   - Symbols and Numbers options
 
 All code runs client side. No logging or analytics.
