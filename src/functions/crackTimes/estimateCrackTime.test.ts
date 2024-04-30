@@ -3,8 +3,14 @@ import { describe, expect, it } from 'vitest';
 import { estimateCrackTime } from './estimateCrackTime';
 
 describe('estimateCrackTime', () => {
-  it('should return "Instantly" for passwords shorter than 8 characters', () => {
-    expect(estimateCrackTime('abcd')).toEqual('Instantly');
+  it('should return "Seconds" for passwords shorter than 8 characters', () => {
+    expect(estimateCrackTime('abcd')).toEqual('Seconds');
+  });
+
+  it('should return "Practically infinite" for passwords 30 characters in length or longer', () => {
+    expect(estimateCrackTime('QeKGUVrpyZraLdWanUlPuiysKNPBfG')).toEqual(
+      'Practically infinite'
+    );
   });
 
   it('should return "Trillions of years" for passwords of 20 characters with onlyAlpha', () => {

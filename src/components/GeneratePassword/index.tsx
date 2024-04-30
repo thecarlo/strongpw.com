@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useEffect, useRef, useState } from 'react';
+import { Checkbox } from '@components/Checkbox';
 import { CssClassType } from '@enums/cssClassType';
+import { PasswordMode } from '@enums/passwordMode';
+import { estimateCrackTime } from '@functions/crackTimes/estimateCrackTime';
+import { randomPassword } from '@functions/generate/randomPassword';
+import { checkPasswordStrength } from '@functions/passwordStrength/checkPasswordStrength';
 import { getClassByStrength } from '@functions/passwordStrength/getClassByStrength';
 import { getClassNameByStrength } from '@functions/passwordStrength/getClassnameByStrength';
-import { estimateCrackTime } from '@functions/crackTimes/estimateCrackTime';
-import { checkPasswordStrength } from '@functions/passwordStrength/checkPasswordStrength';
-
-import { PasswordMode } from '../../enums/passwordMode';
-import { randomPassword } from '../../functions/generate/randomPassword';
-import { GeneratePasswordProps } from '../../interfaces/props/generatePasswordProps';
-import { Checkbox } from '../Checkbox';
+import { GeneratePasswordProps } from '@interfaces/props/generatePasswordProps';
 
 import './style.scss';
 
@@ -18,7 +17,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   const passphraseDefaultLength = 3;
 
-  const passwordDefaultLength = 12;
+  const passwordDefaultLength = 15;
 
   const defaultLength =
     mode === PasswordMode.Password
