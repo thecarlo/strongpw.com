@@ -1,5 +1,6 @@
 import React from 'react';
 import { PasswordMode } from '@enums/passwordMode';
+import * as generatePasswordModule from '@functions/generate/randomPassword';
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
@@ -360,5 +361,142 @@ describe('GeneratePassword', () => {
       passwordStrengthIndicatorFirstChild?.firstChild;
 
     expect(passwordStrengthIndicatorSecondChild).toHaveClass('bg-green-500');
+  });
+
+  it('should copy an empty string if the password content is null or undefined', async () => {
+    const mockClipboard = {
+      writeText: vi.fn(),
+    };
+
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true,
+    });
+
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        uppercase={true}
+        lowercase={true}
+        numbers={true}
+        symbols={true}
+      />
+    );
+
+    // Mocking to return null for textContent
+    const passwordPre = screen.getByTitle('generated password');
+
+    Object.defineProperty(passwordPre, 'textContent', {
+      get: () => null,
+    });
+
+    const copyIcon = screen.getByTitle('Copy Password');
+
+    fireEvent.click(copyIcon);
+
+    await waitFor(() => {
+      expect(mockClipboard.writeText).toHaveBeenCalledWith('');
+    });
+  });
+});
+
+describe('GeneratePassword Error Handling', () => {
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('should log "Failed to generate password" when an error occurs during password generation', async () => {
+    vi.spyOn(generatePasswordModule, 'randomPassword').mockImplementation(
+      () => {
+        throw new Error('Simulated error');
+      }
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        uppercase={true}
+        lowercase={true}
+        numbers={true}
+        symbols={true}
+      />
+    );
+
+    const generateButton = screen.getByRole('button', { name: /Generate/i });
+
+    fireEvent.click(generateButton);
+
+    expect(consoleSpy).toHaveBeenCalledWith('Failed to generate password');
+  });
+
+  it('should log "Error generating password" when an error occurs during password generation from slider change', async () => {
+    vi.spyOn(generatePasswordModule, 'randomPassword').mockImplementation(
+      () => {
+        throw new Error('Simulated slider error');
+      }
+    );
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        uppercase={true}
+        lowercase={true}
+        numbers={true}
+        symbols={true}
+      />
+    );
+
+    const slider = screen.getByRole('slider') as HTMLInputElement;
+
+    fireEvent.change(slider, { target: { value: '20' } });
+
+    expect(consoleSpy).toHaveBeenCalledWith('Error generating password');
+
+    vi.restoreAllMocks();
+  });
+
+  it('should log "Failed to copy password" when an error occurs during password copy', async () => {
+    const mockClipboard = {
+      writeText: vi
+        .fn()
+        .mockRejectedValue(new Error('Simulated clipboard error')),
+    };
+
+    Object.defineProperty(navigator, 'clipboard', {
+      value: mockClipboard,
+      writable: true,
+    });
+
+    render(
+      <GeneratePassword
+        passwordMode={PasswordMode.Password}
+        uppercase={true}
+        lowercase={true}
+        numbers={true}
+        symbols={true}
+      />
+    );
+
+    const passwordPre = screen.getByTitle('generated password');
+
+    passwordPre.textContent = 'testPassword123!'; // Ensure there is text to copy
+
+    const copyIcon = screen.getByTitle('Copy Password');
+
+    fireEvent.click(copyIcon);
+
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+
+    await vi.waitFor(() =>
+      expect(consoleSpy).toHaveBeenCalledWith('Failed to copy password')
+    );
+
+    consoleSpy.mockRestore();
   });
 });
