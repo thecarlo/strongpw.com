@@ -232,7 +232,10 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
       <label>Password Mode</label>
 
-      <div id="radio-password" className="flex items-center mt-1 mb-12 gap-8">
+      <div
+        id="radio-password"
+        className="flex items-center mt-1 mb-12 gap-4 sm:gap-8"
+      >
         <label className="inline-flex items-center">
           <input
             type="radio"
@@ -320,7 +323,6 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         id="indicator"
         className="relative w-full p-6 overflow-hidden shadow-lg rounded-xl md:w-80 dark:bg-gray-800 mx-auto mt-16 mb-12"
       >
-        {/* <p className="text-xl text-gray-400">Password Strength</p> */}
         <div className="flex items-center justify-between my-0 text-white rounded">
           <span
             title="Password Strength"

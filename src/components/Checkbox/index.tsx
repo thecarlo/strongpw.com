@@ -13,7 +13,7 @@ export const Checkbox = ({
   onCheckboxChange: ChangeEventHandler<HTMLInputElement>;
   disabled?: boolean;
 }) => (
-  <div className="relative inline-block mr-8">
+  <div className="relative inline-block mr-4 sm:mr-8">
     <div className="relative inline-block w-10 mr-2 align-middle select-none">
       <input
         aria-label={name}
