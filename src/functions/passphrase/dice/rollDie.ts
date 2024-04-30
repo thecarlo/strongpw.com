@@ -1,9 +1,7 @@
-import { randomBytes } from 'crypto';
-
 export const rollDie = (): number => {
-  const buffer = randomBytes(4);
+  const array = new Uint8Array(1);
 
-  const randomNumber = buffer.readUInt32BE(0);
+  crypto.getRandomValues(array);
 
-  return (randomNumber % 6) + 1;
+  return (array[0] % 6) + 1;
 };
