@@ -22,7 +22,8 @@
       "@components/*": ["components/*"],
       "@enums/*": ["enums/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@functions/*": ["functions/*"]
+      "@functions/*": ["functions/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["src", "./setupTests.ts"],

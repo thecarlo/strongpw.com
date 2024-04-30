@@ -6,8 +6,8 @@ import { PasswordMode } from '@enums/passwordMode';
 import { estimateCrackTime } from '@functions/crackTimes/estimateCrackTime';
 import { randomPassword } from '@functions/generate/randomPassword';
 import { checkPasswordStrength } from '@functions/passwordStrength/checkPasswordStrength';
-import { getClassByStrength } from '@functions/passwordStrength/getClassByStrength';
-import { getClassNameByStrength } from '@functions/passwordStrength/getClassnameByStrength';
+import { useStrengthClass } from '@hooks/useStrengthClass';
+import { useStrengthClassName } from '@hooks/useStrengthClassName';
 import { GeneratePasswordProps } from '@interfaces/props/generatePasswordProps';
 
 import './style.scss';
@@ -29,6 +29,15 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   const [passwordStrength, setPasswordStrength] = useState<string>('');
 
   const [length, setLength] = useState<number>(defaultLength);
+
+  const backgroundClass = useStrengthClass(
+    passwordStrength,
+    CssClassType.Background
+  );
+
+  const textClass = useStrengthClass(passwordStrength, CssClassType.Text);
+
+  const indicatorClass = useStrengthClassName(passwordStrength);
 
   const [checkedState, setCheckedState] = useState({
     symbols: true,
@@ -93,21 +102,14 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
   };
 
   useEffect(() => {
+    const strengthResult = checkPasswordStrength(password);
+
+    setPasswordStrength(strengthResult.strength);
+  }, [password]);
+
+  useEffect(() => {
     handleOnGenerate();
-
-    if (password) {
-      const strengthResult = checkPasswordStrength(password);
-
-      setPasswordStrength(strengthResult.strength);
-    }
-  }, [
-    passwordMode,
-    length,
-    uppercase,
-    lowercase,
-    checkedState,
-    passwordStrength,
-  ]);
+  }, [passwordMode, length, uppercase, lowercase, checkedState]);
 
   const handleOnChange = (checkedName: keyof typeof checkedState) => {
     setCheckedState((prev) => {
@@ -222,9 +224,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       >
         <div className="w-full h-2 bg-gray-100">
           <div
-            className={`h-full text-xs text-center text-white ${getClassNameByStrength(
-              passwordStrength
-            )}`}
+            className={`h-full text-xs text-center text-white ${indicatorClass}`}
           ></div>
         </div>
       </div>
@@ -325,10 +325,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         <div className="flex items-center justify-between my-0 text-white rounded">
           <span
             title="Password Strength"
-            className={`p-2 ${getClassByStrength(
-              passwordStrength,
-              CssClassType.Background
-            )} rounded-lg`}
+            className={`p-2 ${backgroundClass} rounded-lg`}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -343,14 +340,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
           </span>
 
           <div className="flex flex-col items-start w-full ml-2 justify-evenly">
-            <p
-              className={`text-lg ${getClassByStrength(
-                passwordStrength,
-                CssClassType.Text
-              )}`}
-            >
-              {passwordStrength}
-            </p>
+            <p className={`text-lg ${textClass}`}>{passwordStrength}</p>
 
             <p className="text-base text-gray-400">Strength</p>
           </div>
@@ -358,10 +348,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
         <div className="flex items-center justify-between text-white rounded mt-4">
           <span
-            className={`p-2 ${getClassByStrength(
-              passwordStrength,
-              CssClassType.Background
-            )} rounded-lg`}
+            className={`p-2 ${backgroundClass} rounded-lg`}
             title="Time to crack password"
           >
             <svg
@@ -376,12 +363,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
             </svg>
           </span>
           <div className="flex flex-col items-start w-full ml-2 justify-evenly">
-            <p
-              className={`text-lg ${getClassByStrength(
-                passwordStrength,
-                CssClassType.Text
-              )}`}
-            >
+            <p className={`text-lg ${textClass}`}>
               {estimateCrackTime(password)}
             </p>
             <p className="text-base text-gray-400">Time to crack password</p>
