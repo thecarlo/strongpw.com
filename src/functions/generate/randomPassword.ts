@@ -1,8 +1,8 @@
 import { generatePassphrase } from '@humankode/secure-passphrase-generator';
 
-import { PasswordMode } from '../enums/passwordMode';
-import { PassphraseConfiguration } from '../interfaces/passphraseConfiguration';
-import { generateSecurePassword } from './generate/generateSecurePassword';
+import { PasswordMode } from '../../enums/passwordMode';
+import { PassphraseConfiguration } from '../../interfaces/passphraseConfiguration';
+import { generateSecurePassword } from './generateSecurePassword';
 
 export const randomPassword = (
   passwordMode: PasswordMode,

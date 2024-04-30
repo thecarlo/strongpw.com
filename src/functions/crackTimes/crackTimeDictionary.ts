@@ -1,10 +1,10 @@
 import { CrackTime } from '@interfaces/crackTime';
 
-export const crackTimes: Record<number, CrackTime> = {
+export const crackTimeDictionary: Record<number, CrackTime> = {
   8: {
-    allChars: '28 seconds',
+    allChars: '5 minutes',
     onlyAlphaNum: '2 minutes',
-    onlyAlpha: '5 minutes',
+    onlyAlpha: '28 seconds',
   },
   9: { allChars: '6 hours', onlyAlphaNum: '2 hours', onlyAlpha: '24 minutes' },
   10: { allChars: '2 weeks', onlyAlphaNum: '5 days', onlyAlpha: '21 hours' },

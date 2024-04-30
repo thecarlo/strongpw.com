@@ -1,6 +1,6 @@
 import { CrackTime } from '@interfaces/crackTime';
 
-import { crackTimes } from './crackTimes';
+import { crackTimeDictionary } from './crackTimeDictionary';
 
 export const estimateCrackTime = (password: string): string => {
   const hasUpper = /[A-Z]/.test(password);
@@ -26,9 +26,9 @@ export const estimateCrackTime = (password: string): string => {
 
   if (length >= 20) {
     return 'Trillions of years';
-  } else if (length >= 8 && crackTimes[length]) {
-    return crackTimes[length][key];
+  } else if (length >= 8 && crackTimeDictionary[length]) {
+    return crackTimeDictionary[length][key];
   }
 
-  return 'Trillions of years';
+  return 'Instantly';
 };

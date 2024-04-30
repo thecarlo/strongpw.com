@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { checkPasswordStrength } from './index';
+import { checkPasswordStrength } from './checkPasswordStrength';
 
 describe('checkPasswordStrength', () => {
   it('should return Weak for a password 3 characters in length and lowercase', () => {

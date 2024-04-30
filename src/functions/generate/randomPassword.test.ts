@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { PasswordMode } from '../enums/passwordMode';
+import { PasswordMode } from '../../enums/passwordMode';
 import { randomPassword } from './randomPassword';
 
 describe('randomPassword', () => {

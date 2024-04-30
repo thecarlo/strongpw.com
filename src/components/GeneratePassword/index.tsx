@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useEffect, useRef, useState } from 'react';
 import { CssClassType } from '@enums/cssClassType';
-import { checkPasswordStrength } from '@functions/checkPasswordStrength';
-import { getClassByStrength } from '@functions/checkPasswordStrength/getClassByStrength';
-import { getClassNameByStrength } from '@functions/checkPasswordStrength/getClassnameByStrength';
-import { estimateCrackTime } from '@functions/estimateCrackTime';
+import { getClassByStrength } from '@functions/passwordStrength/getClassByStrength';
+import { getClassNameByStrength } from '@functions/passwordStrength/getClassnameByStrength';
+import { estimateCrackTime } from '@functions/crackTimes/estimateCrackTime';
+import { checkPasswordStrength } from '@functions/passwordStrength/checkPasswordStrength';
 
 import { PasswordMode } from '../../enums/passwordMode';
-import { randomPassword } from '../../functions/randomPassword';
+import { randomPassword } from '../../functions/generate/randomPassword';
 import { GeneratePasswordProps } from '../../interfaces/props/generatePasswordProps';
 import { Checkbox } from '../Checkbox';
 
