@@ -18,6 +18,7 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
+      "@configuration/*": ["configuration/*"],
       "@components/*": ["components/*"],
       "@enums/*": ["enums/*"],
       "@interfaces/*": ["interfaces/*"],

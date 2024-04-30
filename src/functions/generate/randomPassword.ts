@@ -1,4 +1,4 @@
-import { generatePassphrase } from '@humankode/secure-passphrase-generator';
+import { generatePassphrase } from '@functions/passphrase/generatePassphrase';
 
 import { PasswordMode } from '../../enums/passwordMode';
 import { PassphraseConfiguration } from '../../interfaces/passphraseConfiguration';
