@@ -19,6 +19,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   const passwordDefaultLength = 15;
 
+  const minimumCharacters = 8;
+
   const defaultLength =
     mode === PasswordMode.Password
       ? passwordDefaultLength
@@ -82,7 +84,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         uppercase,
         checkedState.numbers,
         checkedState.symbols,
-        checkedState.capitalize
+        checkedState.capitalize,
+        minimumCharacters
       );
 
       setPassword(newPassword);
@@ -122,7 +125,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         uppercase,
         newState.numbers,
         newState.symbols,
-        newState.capitalize
+        newState.capitalize,
+        minimumCharacters
       );
 
       setPassword(newPassword);
@@ -163,7 +167,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
       uppercase,
       newState.numbers,
       newState.symbols,
-      newState.capitalize
+      newState.capitalize,
+      minimumCharacters
     );
 
     setPassword(newPassword);

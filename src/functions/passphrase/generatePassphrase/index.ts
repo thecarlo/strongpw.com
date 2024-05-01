@@ -7,34 +7,44 @@ import { getWordByIndex } from '../getWordByIndex/getWordByIndex';
 export const generatePassphrase = (
   configuration: PassphraseConfiguration = defaultPassphraseConfiguration
 ): string => {
-  const { defaultSeparator, numberOfWords, useNumbers, capitalize } =
-    configuration;
+  let passphrase = '';
 
-  const indices = Array.from({ length: numberOfWords }, rollDice);
+  const { minimumCharacters } = configuration;
 
-  const words = indices.map(getWordByIndex);
+  do {
+    const { defaultSeparator, numberOfWords, useNumbers, capitalize } =
+      configuration;
 
-  const numberIndex = useNumbers
-    ? Math.floor(Math.random() * numberOfWords)
-    : -1;
+    const indices = Array.from({ length: numberOfWords }, rollDice);
 
-  const passphrase = words
-    .map((word, index) => {
-      const modifiedWord = capitalize
-        ? word.charAt(0).toUpperCase() + word.slice(1)
-        : word;
+    const words = indices.map(getWordByIndex);
 
-      if (useNumbers && index === numberIndex) {
-        const randomNumber = Math.floor(Math.random() * 99) + 1;
+    const numberIndex = useNumbers
+      ? Math.floor(Math.random() * numberOfWords)
+      : -1;
 
-        return Math.random() < 0.5
-          ? `${randomNumber}${modifiedWord}`
-          : `${modifiedWord}${randomNumber}`;
-      }
+    passphrase = words
+      .map((word, index) => {
+        const modifiedWord = capitalize
+          ? word.charAt(0).toUpperCase() + word.slice(1)
+          : word;
 
-      return modifiedWord;
-    })
-    .join(defaultSeparator);
+        if (useNumbers && index === numberIndex) {
+          const randomNumber = Math.floor(Math.random() * 99) + 1;
+
+          return Math.random() < 0.5
+            ? `${randomNumber}${modifiedWord}`
+            : `${modifiedWord}${randomNumber}`;
+        }
+
+        return modifiedWord;
+      })
+      .join(defaultSeparator);
+  } while (
+    minimumCharacters !== undefined &&
+    minimumCharacters <= 15 &&
+    passphrase.length < minimumCharacters
+  );
 
   return passphrase;
 };

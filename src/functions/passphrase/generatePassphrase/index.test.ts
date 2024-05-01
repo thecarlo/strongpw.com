@@ -161,4 +161,48 @@ describe('generatePassphrase', () => {
 
     vi.restoreAllMocks();
   });
+
+  it('should ensure the passphrase meets the minimum character length', () => {
+    const customConfig = {
+      numberOfWords: 2,
+      defaultSeparator: '-',
+      useNumbers: false,
+      capitalize: false,
+      minimumCharacters: 15,
+    };
+
+    mockedGetWordByNumber
+      .mockReturnValueOnce('longword')
+      .mockReturnValueOnce('longerword');
+
+    const passphrase = generatePassphrase(customConfig);
+
+    expect(passphrase.length).toBeGreaterThanOrEqual(15);
+
+    expect(passphrase).toEqual('longword-longerword');
+  });
+
+  it('should repeatedly generate a passphrase until it meets the minimum characters', () => {
+    const customConfig = {
+      numberOfWords: 2,
+      defaultSeparator: '-',
+      useNumbers: false,
+      capitalize: false,
+      minimumCharacters: 15,
+    };
+
+    mockedGetWordByNumber
+      .mockReturnValueOnce('short')
+      .mockReturnValueOnce('short');
+
+    mockedGetWordByNumber
+      .mockReturnValueOnce('sufficient')
+      .mockReturnValueOnce('enough');
+
+    const passphrase = generatePassphrase(customConfig);
+
+    expect(passphrase).toEqual('sufficient-enough');
+
+    expect(passphrase.length).toBeGreaterThanOrEqual(15);
+  });
 });

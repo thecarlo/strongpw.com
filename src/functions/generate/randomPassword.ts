@@ -11,7 +11,8 @@ export const randomPassword = (
   uppercase: boolean,
   numbers: boolean,
   symbols: boolean,
-  capitalize: boolean
+  capitalize: boolean,
+  minimumCharacters?: number
 ): string => {
   if (passwordMode === PasswordMode.Passphrase) {
     if (numbers === null || typeof numbers === 'undefined') {
@@ -27,6 +28,7 @@ export const randomPassword = (
       defaultSeparator: '-',
       useNumbers: numbers,
       capitalize,
+      minimumCharacters,
     };
 
     return generatePassphrase(passphraseConfiguration);
