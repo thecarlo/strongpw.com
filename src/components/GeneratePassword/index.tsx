@@ -76,6 +76,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
             background: '#333',
             color: '#ccc',
           },
+          id: 'copied',
+          duration: 1200,
         });
       } catch (error) {
         console.error('Failed to copy password');
