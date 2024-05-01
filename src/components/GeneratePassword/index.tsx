@@ -282,7 +282,7 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
         <input
           type="range"
           className="w-full"
-          min={passwordMode === PasswordMode.Password ? 11 : 2}
+          min={passwordMode === PasswordMode.Password ? 12 : 3}
           max={passwordMode === PasswordMode.Password ? 100 : 10}
           value={length}
           onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
