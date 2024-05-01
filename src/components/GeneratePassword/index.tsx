@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/indent */
 import React, { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Checkbox } from '@components/Checkbox';
 import { CssClassType } from '@enums/cssClassType';
 import { PasswordMode } from '@enums/passwordMode';
@@ -67,6 +68,15 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
           selection.addRange(range);
         }
+
+        toast('Copied password to clipboard', {
+          icon: '✅',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#ccc',
+          },
+        });
       } catch (error) {
         console.error('Failed to copy password');
       }
