@@ -65,7 +65,7 @@ export const checkPasswordStrength = (
     score++;
   }
 
-  if (/[!@#$%^&*()_+\-=[\]{}|;:'",.<>?]/.test(password)) {
+  if (/[!@#$%^&*()_+\-=[\]{}|;:'",.<>?~]/.test(password)) {
     hasSpecial = true;
 
     score++;

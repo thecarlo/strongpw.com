@@ -54,7 +54,7 @@ describe('generateSecurePassword', () => {
 
     expect(password).toMatch(/[0-9]/);
 
-    expect(password).toMatch(/[!@#$%^&*()_+\-=[\]{}|;:'",.<>?]/);
+    expect(password).toMatch(/[!@#$%^&*()_+\-=[\]{}|;:'",.<>?~]/);
   });
 
   it('calls shufflePassword with the assembled password', () => {
