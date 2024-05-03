@@ -4,12 +4,18 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { createHtmlPlugin } from 'vite-plugin-html';
+import { VitePluginRadar } from 'vite-plugin-radar';
 
 export default defineConfig({
   plugins: [
     react(),
     createHtmlPlugin({
       minify: true,
+    }),
+    VitePluginRadar({
+      analytics: {
+        id: 'G-NZ7P4Z286W',
+      },
     }),
   ],
   root: './',
