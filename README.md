@@ -4,7 +4,7 @@
 
 ![strongpw.com](images/strongpwv2.png)
 
-Built with React 18 and Vite.
+Built with React 18, Vite.
 
 Generates a strong password in the following modes:
 
