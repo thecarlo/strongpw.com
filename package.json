@@ -39,6 +39,7 @@
     "@vitest/ui": "^1.5.3",
     "autoprefixer": "^10.4.19",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.3",

@@ -24,6 +24,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Set environment variable
+        env:
+          VITE_ANALYTICS_ID: ${{ secrets.VITE_ANALYTICS_ID }}
+        run: |
+          echo "VITE_ANALYTICS_ID=${{ secrets.VITE_ANALYTICS_ID }}" >> $GITHUB_ENV
+
       - name: Install Netlify
         run: npm install netlify-cli@17.22.1 -g
 

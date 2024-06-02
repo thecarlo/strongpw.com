@@ -26,6 +26,6 @@
       "@hooks/*": ["hooks/*"]
     }
   },
-  "include": ["src", "./setupTests.ts"],
+  "include": ["src", "./setupTests.ts", "./src/types/vite-env.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
