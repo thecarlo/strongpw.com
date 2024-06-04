@@ -1,10 +1,15 @@
 /// <reference types="vitest" />
 
+import dotenv from 'dotenv';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import { VitePluginRadar } from 'vite-plugin-radar';
+
+dotenv.config();
+
+const viteAnalyticsId = process.env.VITE_ANALYTICS_ID;
 
 export default defineConfig({
   plugins: [
@@ -14,7 +19,7 @@ export default defineConfig({
     }),
     VitePluginRadar({
       analytics: {
-        id: 'G-NZ7P4Z286W',
+        id: viteAnalyticsId,
       },
     }),
   ],
