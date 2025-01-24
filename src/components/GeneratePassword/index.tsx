@@ -16,7 +16,7 @@ import './style.scss';
 export const GeneratePassword = (props: GeneratePasswordProps) => {
   const { lowercase, uppercase, passwordMode: mode } = props;
 
-  const passphraseDefaultLength = 3;
+  const passphraseDefaultLength = 2;
 
   const passwordDefaultLength = 15;
 
@@ -42,8 +42,8 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
   const [checkedState, setCheckedState] = useState({
     symbols: true,
-    numbers: false,
-    capitalize: false,
+    numbers: true,
+    capitalize: true,
   });
 
   const passwordRef = useRef<HTMLPreElement>(null);
