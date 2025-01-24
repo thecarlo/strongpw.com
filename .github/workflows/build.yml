@@ -19,7 +19,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 'lts/*'
 
       - name: Install dependencies
         run: npm install
@@ -31,7 +31,7 @@ jobs:
           echo "VITE_ANALYTICS_ID=${{ secrets.VITE_ANALYTICS_ID }}" >> $GITHUB_ENV
 
       - name: Install Netlify
-        run: npm install netlify-cli@17.22.1 -g
+        run: npm install netlify-cli@18.0.2 -g
 
       - name: Prettier
         run: npm run prettier

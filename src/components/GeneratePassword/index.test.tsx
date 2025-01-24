@@ -10,7 +10,7 @@ import { GeneratePassword } from './index';
 afterEach(cleanup);
 
 describe('GeneratePassword', () => {
-  const passphraseDefaultLength = 3;
+  const passphraseDefaultLength = 2;
 
   const passwordDefaultLength = 15;
 
@@ -270,18 +270,18 @@ describe('GeneratePassword', () => {
       name: /Numbers/i,
     }) as HTMLInputElement;
 
-    expect(numbersCheckbox.checked).toBe(false);
-
-    fireEvent.click(numbersCheckbox);
-
-    await waitFor(() => {
-      expect(numbersCheckbox.checked).toBe(true);
-    });
+    expect(numbersCheckbox.checked).toBe(true);
 
     fireEvent.click(numbersCheckbox);
 
     await waitFor(() => {
       expect(numbersCheckbox.checked).toBe(false);
+    });
+
+    fireEvent.click(numbersCheckbox);
+
+    await waitFor(() => {
+      expect(numbersCheckbox.checked).toBe(true);
     });
   });
 
