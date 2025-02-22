@@ -157,32 +157,31 @@ export const GeneratePassword = (props: GeneratePasswordProps) => {
 
     setLength(newLength);
 
-    const newState = {
-      numbers: newMode === PasswordMode.Password,
-      symbols: newMode === PasswordMode.Password,
-      capitalize: false,
-    };
+    setCheckedState((prev) => {
+      const updatedState = {
+        ...prev,
+        numbers: newMode === PasswordMode.Password ? prev.numbers : true,
+        symbols: newMode === PasswordMode.Password ? prev.symbols : false,
+        capitalize:
+          newMode === PasswordMode.Passphrase ? true : prev.capitalize,
+      };
 
-    setCheckedState((prev) => ({
-      ...prev,
-      ...newState,
-    }));
+      const newPassword = randomPassword(
+        newMode,
+        newLength,
+        lowercase,
+        uppercase,
+        updatedState.numbers,
+        updatedState.symbols,
+        updatedState.capitalize
+      );
 
-    const newPassword = randomPassword(
-      newMode,
-      newLength,
-      lowercase,
-      uppercase,
-      newState.numbers,
-      newState.symbols,
-      newState.capitalize
-    );
+      setPassword(newPassword);
 
-    setPassword(newPassword);
+      setPasswordStrength(checkPasswordStrength(newPassword).strength);
 
-    const strengthResult = checkPasswordStrength(newPassword);
-
-    setPasswordStrength(strengthResult.strength);
+      return updatedState;
+    });
   };
 
   const getCheckboxes = () => {
