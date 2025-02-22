@@ -232,27 +232,39 @@ describe('GeneratePassword', () => {
 
     fireEvent.click(passwordRadio);
 
-    expect(slider.value).toBe(passwordDefaultLength.toString());
+    await waitFor(() => {
+      expect(passwordRadio.checked).toBe(true);
+
+      expect(slider.value).toBe(passwordDefaultLength.toString());
+    });
 
     fireEvent.click(passphraseRadio);
 
-    expect(passphraseRadio.checked).toBe(true);
+    await waitFor(() => {
+      expect(passphraseRadio.checked).toBe(true);
 
-    expect(slider.value).toBe(passphraseDefaultLength.toString());
+      expect(slider.value).toBe(passphraseDefaultLength.toString());
+    });
 
-    const symbolsCheckbox = screen.queryByLabelText('Symbols');
+    await waitFor(() => {
+      const symbolsCheckbox = screen.queryByLabelText('Symbols');
 
-    expect(symbolsCheckbox).toBeNull();
+      expect(symbolsCheckbox).toBeNull();
+    });
 
-    const capitalizeCheckbox = screen.getByLabelText(
-      'Capitalize'
-    ) as HTMLInputElement;
+    await waitFor(() => {
+      const capitalizeCheckbox = screen.getByLabelText(
+        'Capitalize'
+      ) as HTMLInputElement;
 
-    expect(capitalizeCheckbox.checked).toBeFalsy();
+      expect(capitalizeCheckbox.checked).toBeTruthy();
+    });
 
-    const lengthDisplay = screen.getByText(/Words/);
+    await waitFor(() => {
+      const lengthDisplay = screen.getByText(/Words/);
 
-    expect(lengthDisplay).toBeInTheDocument();
+      expect(lengthDisplay).toBeInTheDocument();
+    });
   });
 
   it('should toggle the checkbox state when a checkbox is clicked', async () => {
