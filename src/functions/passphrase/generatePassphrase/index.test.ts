@@ -100,7 +100,7 @@ describe('generatePassphrase', () => {
       capitalize: false,
     };
 
-    vi.spyOn(global.Math, 'random')
+    vi.spyOn(Math, 'random')
       .mockReturnValueOnce(0.4) // For prefixing or suffixing decision
       .mockReturnValueOnce(0.1); // For determining position of the word to modify
 
@@ -143,7 +143,7 @@ describe('generatePassphrase', () => {
       .mockReturnValueOnce('banana')
       .mockReturnValueOnce('cherry');
 
-    vi.spyOn(global.Math, 'random')
+    vi.spyOn(Math, 'random')
       .mockReturnValueOnce(0.34) // Choosing the word (1st one, 0.34 * 3 ~ 1)
       .mockReturnValueOnce(0.1) // Prefixing number
       .mockReturnValueOnce(0.6); // Not used but could be for other logic
